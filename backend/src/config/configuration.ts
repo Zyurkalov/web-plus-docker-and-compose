@@ -2,17 +2,17 @@ import * as process from 'node:process';
 
 export default () => ({
   server: {
-    port: parseInt(process.env.PORT, 10) || 3001,
+    port: parseInt(process.env.API_PORT, 10) || 3001,
   },
   database: {
     type: 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT, 10) || 5432,
-    username: process.env.DB_USERNAME || 'student',
-    password: process.env.DB_PASSWORD || 'student',
-    databaseName: process.env.DB_NAME || 'kupipodariday',
-    synchronize: process.env.SYNCHRONIZE || true,
-    logging: process.env.LOGGIN || true,
+    host: process.env.POSTGRES_HOST || 'localhost',
+    port: parseInt(process.env.POSTGRES_PORT, 10) || 5432,
+    username: process.env.POSTGRES_USER || 'student',
+    password: process.env.POSTGRES_PASSWORD|| 'student',
+    databaseName: process.env.POSTGRES_DB || 'kupipodariday',
+    synchronize: process.env.POSTGRES_SYNCHRONIZE || true,
+    logging: process.env.POSTGRES_LOGGING || true,
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'supersecret',
