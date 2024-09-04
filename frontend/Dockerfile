@@ -1,15 +1,15 @@
-FROM node:16-alpine AS build
+FROM node:16-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci --no-audit --no-fund
-COPY . ./
+COPY . .
 RUN npm run build 
 
-FROM nginx:1.23.1-alpine AS nginx-frontend
-ENV NODE_ENV=production
+FROM nginx:1.23.1-alpine AS frontend-runner
+# ENV NODE_ENV=production
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci --omit=dev
-COPY --from=build app/build /usr/share/nginx/html
-COPY ./nginx/conf.d/default.conf /etc/conf.d/nginx/conf.d
+# COPY package*.json ./
+# RUN npm ci --omit=dev
+COPY --from=builder app/build /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/conf.d
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

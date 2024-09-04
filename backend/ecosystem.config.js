@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
       {
-        name: 'app',
+        name: 'kupi-podari',
         script: './dist/main.js',
       },
     ],

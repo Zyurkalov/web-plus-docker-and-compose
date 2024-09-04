@@ -1,0 +1,56 @@
+# version: "3.9" - версию указывать больше не нужно
+
+services:
+  backend:
+    container_name: 'backend-compose'
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: 'backend-compose'
+    ports:
+      - "4000:3000"
+    depends_on:
+      - postgres
+    links:
+      - bd:postgres
+    restart: unless-stopped
+    networks:
+      - backend-network
+
+  frontend:  
+    container_name: 'frontend-compose'
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    image: 'frontend-compose'
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - frontend-network
+
+  postgres:
+    container_name: 'postgres'
+    image: postgres:alpine
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes: pg-data:/data/postgres
+    networks:
+      - backend-network
+  
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    port: 8081:8080 
+    networks:
+      - backend-network
+
+  valumes:
+    pg-data:
+
+  networks:
+    frontend-network:
+    backend-network:
