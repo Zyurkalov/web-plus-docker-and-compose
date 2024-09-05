@@ -10,11 +10,9 @@ services:
     ports:
       - "4000:3001"
     env_file:
-      - ./backend/.env
+      - .env
     depends_on:
       - postgres
-    links:
-      - bd:postgres
     restart: unless-stopped
     networks:
       - backend-network
@@ -28,7 +26,7 @@ services:
     ports:
       - "8080:80"
     env_file:
-      - ./frontend/.env
+      - .env
     depends_on:
       - backend
     restart: unless-stopped
