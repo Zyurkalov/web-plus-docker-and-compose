@@ -35,7 +35,7 @@ services:
 
   postgres:
     container_name: 'postgres'
-    image: postgres:alpine
+    image: postgres
     env_file:
       - .env
     restart: unless-stopped
