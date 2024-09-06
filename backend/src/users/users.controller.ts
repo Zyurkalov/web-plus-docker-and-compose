@@ -25,7 +25,6 @@ import { User } from './entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MAP_ERRORS, MAP_PATH } from 'src/constants/constants';
 import { Wish } from 'src/wishes/entities/wish.entity';
-import { UserAlreadyExist } from 'src/common/guards/user-already-exist.guard';
 
 @ApiTags(MAP_PATH.users)
 @ApiExtraModels(User)
@@ -48,7 +47,7 @@ export class UsersController {
     status: MAP_ERRORS.validationError.statusCode,
     description: MAP_ERRORS.validationError.message,
   })
-  @UseGuards(UserAlreadyExist)
+  //@UseGuards(UserAlreadyExist)
   @Patch('me')
   async update(
     @AuthUser() user: User,

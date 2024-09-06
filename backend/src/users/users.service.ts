@@ -11,6 +11,7 @@ import { Wish } from 'src/wishes/entities/wish.entity';
 import { hashValue } from 'src/common/helpers/hash';
 import { SignupUserResponseDto } from 'src/auth/dto/signup-user-response.dto';
 import { WishesService } from 'src/wishes/wishes.service';
+import { MAP_ERRORS } from 'src/constants/constants';
 
 @Injectable()
 export class UsersService {
@@ -98,14 +99,31 @@ export class UsersService {
   ): Promise<UserProfileResponseDto> {
     const updatedUserDto = await this.handlePasswordUpdate(updateUserDto);
     const updatedFields: UpdateUserDto = {}
+    let userExists = false
 
-    for(const key in updatedUserDto) {
+    for (const key in updatedUserDto) {
       if (updatedUserDto[key] !== undefined && updatedUserDto[key] !== user[key]) {
-        updatedFields[key] = updatedUserDto[key] 
+        updatedFields[key] = updatedUserDto[key]
       }
     }
-    if (Object.keys(updatedFields).length) {
+
+    try {
+      if (updatedFields.username !== undefined && updatedFields.username !== user.username) {
+        userExists['username'] = await this.findUserByFields([{ username: updatedFields.username }]);
+      }
+      if (updatedFields.email !== undefined && updatedFields.email !== user.email) {
+        userExists['email'] = await this.findUserByFields([{ email: updatedFields.email }]);
+      }
+
+      userExists = Object.keys(userExists).length > 0;
+    } catch {
+      throw new Error(MAP_ERRORS.default.message);
+    }
+
+    if (Object.keys(updatedFields).length && !userExists) {
       return await this.usersRepository.save({ ...user, ...updatedFields });
+    } else {
+      throw new Error(MAP_ERRORS.userAlreadyExists.message);
     }
   }
 
@@ -126,6 +144,7 @@ export class UsersService {
       password: hash,
     });
     const newUser = await this.usersRepository.save(createUser);
+    console.log(newUser)
     return <SignupUserResponseDto>instanceToPlain(newUser);
   }
 

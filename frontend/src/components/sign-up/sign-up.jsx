@@ -23,8 +23,8 @@ export const SignUp = ({ extraClass = "" }) => {
     username: "",
     email: "",
     password: "",
-    about: "",
-    avatar: "",
+    about: "Пока ничего не рассказал о себе",
+    avatar: "https://i.pravatar.cc/300",
   });
   const [step, setStep] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
