@@ -10,10 +10,11 @@
 - адрес бекенда: [api.zyurkalov.docker-proj.nomorepartiesco.ru](https://api.zyurkalov.docker-proj.nomorepartiesco.ru/)
 
 ### Для разворачивания в локальной сети:
-- склонируйте репозитории: git clone 'name-repository'
-- создайте файл .env можете скопировать содержимое из .env.example
-- если есть Docker:  запустите Docker сборщик: docker-compose up
-- если Docker нет:
-- перейдите в папки frontend и backend (операции нужно повторить в каждой папке):
-  - установите зависимости: npm install
-  - введите npm run start (или другую команду из package.json)
+- склонируйте репозитории: `git clone git@github.com:Zyurkalov/web-plus-docker-and-compose.git`
+- создайте файл .env и затем скопируйте в него содержимое из .env.example
+- если есть Docker:
+  - запустите Docker сборщик: docker-compose up  
+- если Docker отсутствует:
+  - перейдите в папки frontend и backend (операции нужно повторить в каждой папке):
+    - установите зависимости: npm install
+    - введите npm run start (или другую команду из package.json)
