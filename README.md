@@ -14,6 +14,6 @@
 - создайте файл .env можете скопировать содержимое из .env.example
 - если есть Docker:  запустите Docker сборщик: docker-compose up
 - если Docker нет:
-- перейдите в папку frontend / backend (операции нужно повторить в каждой папке)
-- установите зависимости: npm install
-- введите npm run start (или другую команду из package.json)
+- перейдите в папки frontend и backend (операции нужно повторить в каждой папке):
+  - установите зависимости: npm install
+  - введите npm run start (или другую команду из package.json)
